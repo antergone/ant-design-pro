@@ -1,18 +1,18 @@
 const express = require("express");
-const http_proxy = require('http-proxy-middleware');
+var proxy = require('express-http-proxy');
 const app = express();
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/test", (req, res) => res.send("Express on Vercel"));
 
 const proxy = {
-  '/api/': {
-    target: 'https://home.simonmy.com:20443/api/'
+  '/api': {
+    target: 'https://home.simonmy.com:20443/api'
   },
 
 };
 
 for (let key in proxy) {
-  app.use(key, http_proxy(proxy[key]));
+  app.use(key, proxy(proxy[key]));
 }
 
 
