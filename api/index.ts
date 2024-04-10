@@ -1,18 +1,18 @@
 const express = require("express");
-var proxy = require('express-http-proxy');
+const proxy = require('express-http-proxy');
 const app = express();
 
 app.get("/test", (req, res) => res.send("Express on Vercel"));
 
-const proxy = {
+const proxies = {
   '/api': {
     target: 'https://home.simonmy.com:20443/api'
   },
 
 };
 
-for (let key in proxy) {
-  app.use(key, proxy(proxy[key]));
+for (let key in proxies) {
+  app.use(key, proxies(proxy[key]));
 }
 
 
